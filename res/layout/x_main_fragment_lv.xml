@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/label_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/base_label" />
+
+    <kr.photox.android.lib.JoonHsv
+        android:id="@+id/hsv"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:overScrollMode="never"
+        android:scrollbars="@null" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <include
+                android:id="@+id/mission_view_0"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                layout="@layout/base_mission_cover" />
+        </LinearLayout>
+    </kr.photox.android.lib.JoonHsv>
+
+</LinearLayout>

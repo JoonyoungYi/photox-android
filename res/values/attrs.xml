@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- TextView xml -->
+    <attr name="joonTextViewStyle" format="reference" />
+
+    <declare-styleable name="JoonTextView">
+        <attr name="minTextSize" format="dimension" />
+        <attr name="isAutoScaleActivated" format="boolean" />
+        <attr name="boldLevel" format="integer" />
+    </declare-styleable>
+
+</resources>

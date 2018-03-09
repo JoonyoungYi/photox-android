@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <kr.photox.android.lib.RecyclingImageView
+        android:id="@+id/iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <kr.photox.android.lib.JoonSd
+        android:id="@+id/sd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:allowSingleTap="false"
+        android:content="@+id/content_view"
+        android:handle="@+id/header_view"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <include
+            android:id="@+id/header_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/m_fragment_header" />
+
+        <FrameLayout
+            android:id="@+id/content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EEEEEE" >
+
+            <ListView
+                android:id="@+id/lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:overScrollMode="never" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:scaleType="fitStart"
+                android:src="@drawable/base_label_bg_shadow" />
+        </FrameLayout>
+    </kr.photox.android.lib.JoonSd>
+
+    <include
+        android:id="@+id/loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/abs__action_bar_default_height"
+        android:layout_marginTop="15dp"
+        layout="@layout/base_loading_fill"
+        android:visibility="visible" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:scaleType="fitStart"
+        android:src="@drawable/base_label_bg_shadow" />
+
+</FrameLayout>

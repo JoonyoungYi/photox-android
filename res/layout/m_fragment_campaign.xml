@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <include
+        android:id="@+id/base_view"
+        android:layout_width="match_parent"
+        android:layout_height="91dp"
+        layout="@layout/base_campaign" />
+
+    <Button
+        android:id= "@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="91dp"
+        android:background="@drawable/base_btn" />
+
+</FrameLayout>
