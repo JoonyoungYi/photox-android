@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string login_key="app_name">photoX</string>
+    <string login_key="title_recommend">장소 추천</string>
+    <string login_key="title_score">내 점수</string>
+    <string login_key="title_campaign">내 캠페인</string>
+    <string login_key="title_todo">할 일</string>
+    <string login_key="title_history">히스토리</string>
+    <string login_key="title_setting">환경 설정</string>
+    <string login_key="navigation_drawer_open">Open navigation drawer</string>
+    <string login_key="navigation_drawer_close">Close navigation drawer</string>
+    <string login_key="action_example">Example action</string>
+    <string login_key="action_settings">Settings</string>
+    <string login_key="title_activity_login">LoginActivity</string>
+    <string login_key="title_section1">Section 1</string>
+    <string login_key="title_section2">Section 2</string>
+    <string login_key="title_section3">Section 3</string>
+
+</resources>

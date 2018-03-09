@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- File created by the Android Action Bar Style Generator
+
+     Copyright (C) 2011 The Android Open Source Project
+     Copyright (C) 2012 readyState Software Ltd
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <style login_key="Theme.Photox" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item login_key="android:actionBarItemBackground">@drawable/selectable_background_photox</item>
+        <item login_key="android:popupMenuStyle">@style/PopupMenu.Photox</item>
+        <item login_key="android:dropDownListViewStyle">@style/DropDownListView.Photox</item>
+        <item login_key="android:actionBarTabStyle">@style/ActionBarTabStyle.Photox</item>
+        <item login_key="android:actionDropDownStyle">@style/DropDownNav.Photox</item>
+        <item login_key="android:actionBarStyle">@style/ActionBar.Solid.Photox</item>
+        <item login_key="android:actionModeBackground">@drawable/cab_background_top_photox</item>
+        <item login_key="android:actionModeSplitBackground">@drawable/cab_background_bottom_photox</item>
+        <item login_key="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Photox</item>
+        
+                <!-- Light.DarkActionBar specific -->
+        <item login_key="android:actionBarWidgetTheme">@style/Theme.Photox.Widget</item>
+
+    </style>
+
+    <style login_key="ActionBar.Solid.Photox" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item login_key="android:background">@drawable/ab_solid_photox</item>
+        <item login_key="android:backgroundStacked">@drawable/ab_stacked_solid_photox</item>
+        <item login_key="android:backgroundSplit">@drawable/ab_bottom_solid_photox</item>
+        <item login_key="android:progressBarStyle">@style/ProgressBar.Photox</item>
+        <item login_key="android:titleTextStyle">@style/ActionBar.Title.Photox</item>
+    </style>
+
+    <style login_key="ActionBar.Title.Photox" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item login_key="android:textColor">#FFFEFFFF</item>
+    </style>
+
+    <style login_key="ActionBar.Transparent.Photox" parent="@style/Widget.AppCompat.ActionBar">
+        <item login_key="android:background">@drawable/ab_transparent_photox</item>
+        <item login_key="android:progressBarStyle">@style/ProgressBar.Photox</item>
+    </style>
+    
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style login_key="Theme.Photox.Widget" parent="@style/Theme.AppCompat">
+        <item login_key="android:popupMenuStyle">@style/PopupMenu.Photox</item>
+        <item login_key="android:dropDownListViewStyle">@style/DropDownListView.Photox</item>
+    </style>
+
+</resources>

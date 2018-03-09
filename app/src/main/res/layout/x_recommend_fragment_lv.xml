@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginLeft="10sp"
+        android:orientation="horizontal"
+        android:background="#F2F2F2">
+
+        <ImageView
+            android:id="@+id/icon_iv"
+            android:layout_width="100sp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10sp"
+            android:scaleType="centerInside"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"
+            android:src="@drawable/category_00" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/category_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="대학교"
+                android:textColor="#666666"
+                android:layout_marginBottom="5sp"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="카이스트(한국과학기술원)"
+                android:textColor="#000000"
+                android:layout_marginBottom="5sp"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/description_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0.1km / 4개 미션"
+                android:textColor="#333333"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginRight="10sp"
+        android:layout_marginLeft="10sp"
+        android:background="#999999" />
+</LinearLayout>
