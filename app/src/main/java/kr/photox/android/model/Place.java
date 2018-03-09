@@ -5,21 +5,23 @@ import kr.photox.android.R;
 
 public class Place {
 
-	private int id;
+    private int id;
     private String title;
     private int category;
     private int total_mission_count;
 
-    private float latitude;
-    private float longitude;
+    private double latitude;
+    private double longitude;
+
+    private Mission mission;
 
     /**
-	 * Init
-	 */
+     * Init
+     */
 
-	public Place() {
+    public Place() {
 
-	}
+    }
 
     /**
      * Getter and Setter
@@ -60,20 +62,29 @@ public class Place {
         this.total_mission_count = total_mission_count;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+
+    public Mission getMission() {
+        return mission;
+    }
+
+    public void setMission(Mission mission) {
+        this.mission = mission;
     }
 
     /**

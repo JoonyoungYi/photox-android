@@ -1,5 +1,6 @@
-package kr.photox.android;
+package kr.photox.android.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,12 +12,14 @@ import android.view.MenuItem;
 
 import java.util.Locale;
 
+import kr.photox.android.R;
+
 public class LoginActivity extends ActionBarActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
+     * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which will keep every
      * loaded fragment in memory. If this becomes too memory intensive, it
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
@@ -24,7 +27,7 @@ public class LoginActivity extends ActionBarActivity {
     SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
-     * The {@link ViewPager} that will host the section contents.
+     * The {@link android.support.v4.view.ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
 
@@ -43,6 +46,7 @@ public class LoginActivity extends ActionBarActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(4);
 
 
     }
@@ -52,7 +56,7 @@ public class LoginActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.login, menu);
+        // getMenuInflater().inflate(R.menu.login, menu);
         return true;
     }
 
@@ -71,7 +75,7 @@ public class LoginActivity extends ActionBarActivity {
     
 
     /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * A {@link android.support.v4.app.FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -84,28 +88,42 @@ public class LoginActivity extends ActionBarActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return LoginFacebookFragment.newInstance(position + 1);
+            if (position == 3) {
+                return new LoginFragment();
+            } else {
+                return LoginIntroFragment.newInstance(position);
+            }
+
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
+
             switch (position) {
-                case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
-                case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
+                case 3:
+                    return "Login";
             }
             return null;
         }
+    }
+
+
+    /**
+     *
+     */
+    public void startXActivity(){
+        Intent intent = new Intent(LoginActivity.this, XActivity.class);
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in,
+                android.R.anim.fade_out);
+        finish();
     }
 
 }

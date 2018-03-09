@@ -1,6 +1,7 @@
-package kr.photox.android;
+package kr.photox.android.view;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,24 +16,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import kr.photox.android.R;
+import kr.photox.android.api.ApiBase;
+import kr.photox.android.api.MainListApi;
 import kr.photox.android.model.Place;
+import kr.photox.android.utils.Argument;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class XRecommendFragment extends Fragment {
-
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
-    private static final String ARG_SECTION_NUMBER = "section_number";
-
-    /**
-     *
-     */
-    private String portal_id = "";
-    private int time_offset = 0;
+    private static final String TAG = "X Recommend Fragment";
 
     /**
      *
@@ -49,21 +43,12 @@ public class XRecommendFragment extends Fragment {
      *
      */
 
-   // private ListApiTask mListApiTask = null;
+    private MainListApiTask mMainListApiTask = null;
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-
-    public static XRecommendFragment newInstance(int sectionNumber) {
-        XRecommendFragment fragment = new XRecommendFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-
-        return fragment;
-    }
 
     public XRecommendFragment() {
     }
@@ -82,42 +67,21 @@ public class XRecommendFragment extends Fragment {
         /*
 
          */
-        int section_number = getArguments().getInt(ARG_SECTION_NUMBER);
+        //int section_number = getArguments().getInt(ARG_SECTION_NUMBER);
 
         /**
          * ListView Default Setting
          */
         mLv = (ListView) rootView.findViewById(R.id.lv);
-        //mErrorView = rootView.findViewById(R.id.error_view);
-        //mErrorTv = (TextView) mErrorView.findViewById(R.id.error_tv);
-        //mErrorPb = (ProgressBar) mErrorView.findViewById(R.id.error_pb);
-
-        /*
-
-         */
-        ListView.LayoutParams params = new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
-        View v = new View(getActivity());
-        v.setLayoutParams(params);
-        mLv.addFooterView(v);
-        mLv.addHeaderView(v);
+        mErrorView = rootView.findViewById(R.id.error_view);
+        mErrorTv = (TextView) mErrorView.findViewById(R.id.error_tv);
+        mErrorPb = (ProgressBar) mErrorView.findViewById(R.id.error_pb);
 
         /*
          * ListView Setting
 		 */
 
         ArrayList<Place> places = new ArrayList<Place>();
-
-        for (int i = 1; i < 12 ; i ++ ){
-            Place place = new Place();
-            place.setCategory(i);
-            place.setTitle(String.format("장소이름 %d", i));
-            place.setId(0);
-            place.setLatitude(0);
-            place.setLongitude(0);
-            place.setTotal_mission_count(i*10);
-            places.add(place);
-        }
-
         mLvAdapter = new LvAdapter(getActivity(), R.layout.x_recommend_fragment_lv,
                 places);
         mLv.setAdapter(mLvAdapter);
@@ -126,19 +90,9 @@ public class XRecommendFragment extends Fragment {
         /*
 
          */
-        /*mListApiTask = new ListApiTask();
-        if (section_number == 0)
-            mListApiTask.execute("favorite");
-        else if (section_number == 1)
-            mListApiTask.execute("campus");
-        else if (section_number == 2)
-            mListApiTask.execute("delivery");
-        else if (section_number == 3)
-            mListApiTask.execute("external");
+        mMainListApiTask = new MainListApiTask();
+        mMainListApiTask.execute();
 
-        /*
-
-         */
         return rootView;
     }
 
@@ -154,11 +108,12 @@ public class XRecommendFragment extends Fragment {
         private int textViewResourceId;
 
         public LvAdapter(Activity context, int textViewResourceId,
-                         ArrayList<Place> places) {
-            super(context, textViewResourceId, places);
+                         ArrayList<Place> stores) {
+            super(context, textViewResourceId, stores);
 
             this.textViewResourceId = textViewResourceId;
-            this.places = places;
+            this.places = stores;
+
         }
 
         @Override
@@ -185,7 +140,7 @@ public class XRecommendFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
 
 			/*
-			 * UI Initiailizing : View Holder
+             * UI Initiailizing : View Holder
 			 */
 
             if (convertView == null) {
@@ -195,32 +150,34 @@ public class XRecommendFragment extends Fragment {
                 viewHolder = new ViewHolder();
 
                 viewHolder.mIconIv = (ImageView) convertView.findViewById(R.id.icon_iv);
+
                 viewHolder.mCategoryTv = (TextView) convertView.findViewById(R.id.category_tv);
                 viewHolder.mTitleTv = (TextView) convertView.findViewById(R.id.title_tv);
                 viewHolder.mDescriptionTv = (TextView) convertView.findViewById(R.id.description_tv);
 
                 convertView.setTag(viewHolder);
+
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            Place place = this.getItem(position);
+            Place store = this.getItem(position);
 
 			/*
-			 * Data Import and export
+             * Data Import and export
 			 */
 
-            //
-            viewHolder.mIconIv.setImageResource(Place.ARRAY_CATEGORY_DRAWABLE[place.getCategory()]);
-            viewHolder.mCategoryTv.setText(Place.ARRAY_CATEGORY_NAME[place.getCategory()]);
-            viewHolder.mTitleTv.setText(place.getTitle());
-            viewHolder.mDescriptionTv.setText(String.format("%.02fkm / %d개 미션", 0.1, place.getTotal_mission_count()));
+            viewHolder.mIconIv.setImageResource(Place.ARRAY_CATEGORY_DRAWABLE[store.getCategory()]);
+            viewHolder.mCategoryTv.setText(Place.ARRAY_CATEGORY_NAME[store.getCategory()]);
+            viewHolder.mTitleTv.setText(store.getTitle());
+            viewHolder.mDescriptionTv.setText(String.format("%d개 미션", store.getTotal_mission_count()));
 
             return convertView;
         }
 
         private class ViewHolder {
             ImageView mIconIv;
+
             TextView mCategoryTv;
             TextView mTitleTv;
             TextView mDescriptionTv;
@@ -236,28 +193,29 @@ public class XRecommendFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-           /* BabActivity activity = (BabActivity) getActivity();
-            Store store = (Store) adapterView.getAdapter().getItem(i);
-            activity.startDetailActivity(store.getTitle(), store.getId(), store.getCode());
-    */
+            XActivity activity = (XActivity) getActivity();
+            Place place = (Place) adapterView.getAdapter().getItem(i);
+            activity.startPlaceActivity(place.getId(), place.getTitle());
+
         }
     };
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
-     *//*
-    public class ListApiTask extends AsyncTask<String, Void, ArrayList<Store>> {
-        private String api_sort = "";
+     */
+    public class MainListApiTask extends AsyncTask<Void, Void, ArrayList<Place>> {
+        private int request_code = Argument.REQUEST_CODE_UNEXPECTED;
 
         @Override
-        protected ArrayList<Store> doInBackground(String... sort) {
-            ArrayList<Store> stores = null;
-            api_sort = sort[0];
+        protected ArrayList<Place> doInBackground(Void... params) {
+            ArrayList<Place> stores = null;
 
             try {
-                ListApi listApi = new ListApi(api_sort, XRecommendFragment.this.mAutoKey, XRecommendFragment.this.time_offset);
-                stores = listApi.getResult();
+                MainListApi storeListApi = new MainListApi(getActivity().getApplication(), 0, 10, null);
+                request_code = storeListApi.getRequestCode();
+                if (request_code == Argument.REQUEST_CODE_SUCCESS)
+                    stores = storeListApi.getResult();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -271,28 +229,30 @@ public class XRecommendFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Store> stores) {
+        protected void onPostExecute(ArrayList<Place> places) {
+            mMainListApiTask = null;
+            ApiBase.showToastMsg(getActivity().getApplication(), request_code);
 
-            if (stores.size() != 0) {
-                showErrorView(false, "");
-                mLvAdapter.places.addAll(stores);
-                mLvAdapter.notifyDataSetChanged();
+            if (request_code == Argument.REQUEST_CODE_SUCCESS) {
+                if (places.size() != 0) {
+                    showErrorView(false, "");
+                    mLvAdapter.places.addAll(places);
+                    mLvAdapter.notifyDataSetChanged();
 
-            } else if (api_sort.equals("favorite")) {
-                showErrorView(true, "등록된 즐겨찾기가 없습니다.");
-
+                } else {
+                    showErrorView(true, "데이터가 없습니다");
+                }
             } else {
-                showErrorView(true, "데이터가 없습니다");
+                showErrorView(true, "오류가 발생해 장소를 불러오지 못했습니다");
             }
-
-            mListApiTask = null;
         }
 
         @Override
         protected void onCancelled() {
+            mMainListApiTask = null;
+            //ApiBase.showToastMsg(getActivity().getApplication(), request_code);
+            showErrorView(true, "오류가 발생해 장소를 불러오지 못했습니다");
 
-            showErrorView(true, "오류가 발생해 식당을 불러오지 못했습니다");
-            mListApiTask = null;
         }
     }
 
@@ -306,7 +266,7 @@ public class XRecommendFragment extends Fragment {
             mErrorView.setVisibility(View.VISIBLE);
             mErrorTv.setText(msg);
 
-            if (msg.equals("")){
+            if (msg.equals("")) {
                 mErrorPb.setVisibility(View.VISIBLE);
             } else {
                 mErrorPb.setVisibility(View.GONE);
@@ -319,11 +279,14 @@ public class XRecommendFragment extends Fragment {
         }
     }
 
+    /**
+     *
+     * @param activity
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((XActivity) activity).onSectionAttached(
-                getArguments().getInt(ARG_SECTION_NUMBER));
+        ((XActivity) activity).onSectionAttached(R.string.title_recommend);
     }
 
     /**
@@ -332,9 +295,9 @@ public class XRecommendFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
-        //if (mListApiTask != null) {
-        //    mListApiTask.cancel(true);
-       // }
+        if (mMainListApiTask != null) {
+            mMainListApiTask.cancel(true);
+        }
 
     }
 

@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#F2F2F2">
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="80sp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="15sp">
+
+            <TextView
+                android:id="@+id/title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:layout_marginBottom="5sp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/score_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#666666"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/checkin_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="#00FFFFFF" />
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="40sp"
+        android:layout_gravity="center_vertical"
+        android:background="#AAAAAA"/>
+
+    <Button
+        android:id="@+id/detail_btn"
+        android:layout_width="40dp"
+        android:layout_height="80sp"
+        android:text=":"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#AAAAAA"
+        android:background="#00FFFFFF" />
+</LinearLayout>

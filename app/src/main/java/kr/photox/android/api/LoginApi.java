@@ -1,62 +1,71 @@
 package kr.photox.android.api;
 
+import android.app.Application;
+import android.util.Log;
+
 import org.json.JSONObject;
 
-public class LoginApi {
+import kr.photox.android.utils.Argument;
+
+public class LoginApi extends ApiBase {
     private final static String TAG = "Login Api";
 
     /**
-     *
+     * @param application
+     * @param login_type
+     * @param login_key
      */
-    private String login_type = "";
-    private String login_key = "";
-
-	/**
-	 * Init
-	 */
-
-	public LoginApi(String login_type, String login_key) {
-        this.login_type = login_type;
-        this.login_key = login_key;
-	}
-
-    /**
-     *
-     * @return
-     */
-	public boolean getResult() {
+    public LoginApi(Application application, String login_type, String login_key) {
+        this.application = application;
 
         //
-        if (!login_type.equals("auto") && !login_type.equals("fb"))
-            return false;
-        if (login_key.equals(""))
-            return false;
-
-        RequestController rc = new RequestController("login", "POST", "http");
-        rc.addBodyValue("login_type", this.login_type);
-        rc.addBodyValue("login_key", this.login_key);
-        rc.doRequest();
-
-        return convertStr2RstBoolean(rc.getResponse_body());
-	}
-
-    /**
-     *
-     * @param rst
-     * @return
-     */
-    private boolean convertStr2RstBoolean(String rst){
-        try {
-            String status = ((new JSONObject(rst)).getJSONObject("result")).getString("status");
-            if (status.equals("ok"))
-                return true;
-
-        } catch (Exception e){
-            e.printStackTrace();
+        if (login_type.equals("auto")) {
+            login_key = getStringInPrefs(application, Argument.PREFS_AUTO_KEY, null);
+            Log.d(TAG, "login_key: " + login_key);
         }
 
-        return false;
+        //
+        if ((!login_type.equals("auto") && !login_type.equals("fb")) || ( login_type.equals("fb") && login_key == null)) {
+            Log.d(TAG, "error");
+            Log.d(TAG, "login_key: " + login_key);
+            return;
+        }
+
+        //
+        ApiRequestController rc = new ApiRequestController("login", "POST", "http");
+        rc.addBodyValue("login_type", login_type);
+        rc.addBodyValue("login_key", login_key);
+        rc.doRequest();
+
+        //
+        response = rc.getResponse_body();
+        Log.d(TAG, response);
+
     }
-	
-	
+
+    /**
+     * 결과를 반환합니다.
+     */
+
+    public void getResult() {
+
+        try {
+            JSONObject jsonObj = new JSONObject(response);
+
+            if (!jsonObj.isNull("session_key")) {
+                String session_key = jsonObj.getString("session_key");
+                setString2Prefs(application, Argument.PREFS_SESSION_KEY, session_key);
+            }
+
+            if (!jsonObj.isNull("auto_key")) {
+                String auto_key = jsonObj.getString("auto_key");
+                setString2Prefs(application, Argument.PREFS_AUTO_KEY, auto_key);
+                Log.d(TAG, "login_key: " + auto_key);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

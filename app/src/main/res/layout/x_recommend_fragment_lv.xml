@@ -8,8 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="120sp"
-        android:layout_marginRight="10sp"
-        android:layout_marginLeft="10sp"
         android:orientation="horizontal"
         android:background="#F2F2F2">
 
@@ -63,7 +61,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginRight="10sp"
-        android:layout_marginLeft="10sp"
-        android:background="#999999" />
+        android:background="#AAAAAA" />
 </LinearLayout>

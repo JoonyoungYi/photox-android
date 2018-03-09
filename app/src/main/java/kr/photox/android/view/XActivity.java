@@ -1,26 +1,21 @@
-package kr.photox.android;
+package kr.photox.android.view;
 
-import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.os.Handler;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import kr.photox.android.R;
+import kr.photox.android.utils.Argument;
 
 public class XActivity extends ActionBarActivity
         implements XNavigationDrawerFragment.NavigationDrawerCallbacks {
-
-    /**
-     *
-     */
-    public static final int[] mTitles = {R.string.title_recommend, R.string.title_score, R.string.title_campaign, R.string.title_todo, R.string.title_history, R.string.title_setting};
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -31,6 +26,12 @@ public class XActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+
+    /**
+     *
+     */
+
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +46,33 @@ public class XActivity extends ActionBarActivity
         mXNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, XRecommendFragment.newInstance(position + 1))
-                .commit();
+
+        if (Argument.X_TITLES[position] == R.string.title_recommend) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new XRecommendFragment())
+                    .commit();
+        } else if (Argument.X_TITLES[position] == R.string.title_todo) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new XTodoFragment())
+                    .commit();
+        } else if (Argument.X_TITLES[position] == R.string.title_history) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new XHistoryFragment())
+                    .commit();
+        }
+
+
     }
 
-    public void onSectionAttached(int number) {
-        mTitle = getString(mTitles[number - 1]);
+    public void onSectionAttached(int title_id) {
+        mTitle = getString(title_id);
     }
 
     public void restoreActionBar() {
@@ -93,4 +108,45 @@ public class XActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     *
+     */
+    public void startPlaceActivity(int id, String title) {
+        Intent intent = new Intent(XActivity.this, PlaceActivity.class);
+        intent.putExtra("id", id);
+        intent.putExtra("title", title);
+        startActivity(intent);
+    }
+
+    /**
+     *
+     */
+    public void startMissionActivity(int id, String title) {
+        Intent intent = new Intent(XActivity.this, MissionActivity.class);
+        intent.putExtra("id", id);
+        intent.putExtra("title", title);
+        startActivity(intent);
+    }
+
+    /**
+     * 뒤로가기 두번
+     */
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "한 번 더 누르시면, \"photoX\"에서 빠져나갑니다.", Toast.LENGTH_SHORT)
+                .show();
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+
+            }
+        }, 2000);
+    }
 }

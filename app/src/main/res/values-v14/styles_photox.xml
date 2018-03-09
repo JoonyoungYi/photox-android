@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- File created by the Android Action Bar Style Generator
+<?xml version="1.0" encoding="utf-8"?><!-- File created by the Android Action Bar Style Generator
 
      Copyright (C) 2011 The Android Open Source Project
      Copyright (C) 2012 readyState Software Ltd
@@ -19,43 +18,53 @@
 
 <resources>
 
-    <style login_key="Theme.Photox" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item login_key="android:actionBarItemBackground">@drawable/selectable_background_photox</item>
-        <item login_key="android:popupMenuStyle">@style/PopupMenu.Photox</item>
-        <item login_key="android:dropDownListViewStyle">@style/DropDownListView.Photox</item>
-        <item login_key="android:actionBarTabStyle">@style/ActionBarTabStyle.Photox</item>
-        <item login_key="android:actionDropDownStyle">@style/DropDownNav.Photox</item>
-        <item login_key="android:actionBarStyle">@style/ActionBar.Solid.Photox</item>
-        <item login_key="android:actionModeBackground">@drawable/cab_background_top_photox</item>
-        <item login_key="android:actionModeSplitBackground">@drawable/cab_background_bottom_photox</item>
-        <item login_key="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Photox</item>
-        
-                <!-- Light.DarkActionBar specific -->
-        <item login_key="android:actionBarWidgetTheme">@style/Theme.Photox.Widget</item>
+
+    <!-- -->
+
+    <style name="Theme.Photox.NoActionBar" parent="Theme.Photox">
+        <item name="android:windowActionBar">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <!-- -->
+
+    <style name="Theme.Photox" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_photox</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Photox</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Photox</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Photox</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Photox</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Photox</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_photox</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_photox</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Photox</item>
+
+        <!-- Light.DarkActionBar specific -->
+        <item name="android:actionBarWidgetTheme">@style/Theme.Photox.Widget</item>
 
     </style>
 
-    <style login_key="ActionBar.Solid.Photox" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item login_key="android:background">@drawable/ab_solid_photox</item>
-        <item login_key="android:backgroundStacked">@drawable/ab_stacked_solid_photox</item>
-        <item login_key="android:backgroundSplit">@drawable/ab_bottom_solid_photox</item>
-        <item login_key="android:progressBarStyle">@style/ProgressBar.Photox</item>
-        <item login_key="android:titleTextStyle">@style/ActionBar.Title.Photox</item>
+    <style name="ActionBar.Solid.Photox" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/ab_solid_photox</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_photox</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_photox</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Photox</item>
+        <item name="android:titleTextStyle">@style/ActionBar.Title.Photox</item>
     </style>
 
-    <style login_key="ActionBar.Title.Photox" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item login_key="android:textColor">#FFFEFFFF</item>
+    <style name="ActionBar.Title.Photox" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">#FFFEFFFF</item>
     </style>
 
-    <style login_key="ActionBar.Transparent.Photox" parent="@style/Widget.AppCompat.ActionBar">
-        <item login_key="android:background">@drawable/ab_transparent_photox</item>
-        <item login_key="android:progressBarStyle">@style/ProgressBar.Photox</item>
+    <style name="ActionBar.Transparent.Photox" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_photox</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Photox</item>
     </style>
-    
+
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
-    <style login_key="Theme.Photox.Widget" parent="@style/Theme.AppCompat">
-        <item login_key="android:popupMenuStyle">@style/PopupMenu.Photox</item>
-        <item login_key="android:dropDownListViewStyle">@style/DropDownListView.Photox</item>
+    <style name="Theme.Photox.Widget" parent="@style/Theme.AppCompat">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Photox</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Photox</item>
     </style>
 
 </resources>

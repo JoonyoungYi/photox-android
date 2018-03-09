@@ -1,4 +1,4 @@
-package kr.photox.android;
+package kr.photox.android.view;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -19,21 +19,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import kr.photox.android.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class XNavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment {
 
     /**
      * Remember the position of the selected item.
@@ -64,7 +60,7 @@ public class XNavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
-    public XNavigationDrawerFragment() {
+    public NavigationDrawerFragment() {
     }
 
     @Override
@@ -96,108 +92,25 @@ public class XNavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         mDrawerListView = (ListView) inflater.inflate(
-                R.layout.x_navigation_drawer_fragment, container, false);
+                R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
             }
         });
-
-        ArrayList<String> mTitles = new ArrayList<String>();
-        for (int i = 0 ; i < XActivity.mTitles.length; i ++ )
-            mTitles.add(getString(XActivity.mTitles[i]));
-        LvAdapter mLvAdapter = new LvAdapter(getActivity(), R.layout.x_navigation_drawer_fragment_lv, mTitles);
-        mDrawerListView.setAdapter(mLvAdapter);
+        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+                getActionBar().getThemedContext(),
+                android.R.layout.simple_list_item_1,
+                android.R.id.text1,
+                new String[]{
+                }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-
         return mDrawerListView;
     }
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
-    }
-
-    /**
-     * ListView Apdater Setting
-     */
-
-    private class LvAdapter extends ArrayAdapter<String> {
-        private static final String TAG = "XNavigationDrawerFragment LvAdapter";
-
-        private ViewHolder viewHolder = null;
-        public ArrayList<String> titles;
-        private int textViewResourceId;
-
-        public LvAdapter(Activity context, int textViewResourceId,
-                         ArrayList<String> titles) {
-            super(context, textViewResourceId, titles);
-
-            this.textViewResourceId = textViewResourceId;
-            this.titles = titles;
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
-
-        @Override
-        public int getCount() {
-            return titles.size();
-        }
-
-        @Override
-        public String getItem(int position) {
-            return titles.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-			/*
-			 * UI Initiailizing : View Holder
-			 */
-
-            if (convertView == null) {
-                convertView = getActivity().getLayoutInflater()
-                        .inflate(textViewResourceId, null);
-
-                viewHolder = new ViewHolder();
-
-                viewHolder.mIconIv = (ImageView) convertView.findViewById(R.id.icon_iv);
-                viewHolder.mTitleTv = (TextView) convertView.findViewById(R.id.title_tv);
-
-                convertView.setTag(viewHolder);
-
-            } else {
-                viewHolder = (ViewHolder) convertView.getTag();
-            }
-
-            String title = this.getItem(position);
-
-			/*
-			 * Data Import and export
-			 */
-
-            //
-            //viewHolder.mIconIv.setImageResource(Place.ARRAY_CATEGORY_DRAWABLE[store.getCode()]);
-            viewHolder.mTitleTv.setText(title);
-
-
-            return convertView;
-        }
-
-        private class ViewHolder {
-            ImageView mIconIv;
-            TextView mTitleTv;
-        }
-
     }
 
     /**
